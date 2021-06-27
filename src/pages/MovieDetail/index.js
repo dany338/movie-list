@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback }  from 'react';
+import React, { useState, useEffect, useCallback, useRef }  from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -15,20 +15,28 @@ const MovieDetail = ({ match }) => {
   const [ processing, setProcessing ] = useState(false);
   const [ movie, setMovie ] = useState(null);
   const { getMovieByIdRequest } = useMovies();
+  const [state, setState] = useState(false);
+  const setterRef = useRef(setState);
+  const setterIfMounted = useCallback((...args) => setterRef.current(...args), [])
 
-  const load = useCallback(async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const load = async () => {
+    setProcessing(false);
     const { msg, err } = await getMovieByIdRequest(match.params.id);
     if(!err) {
+      console.log('Entro', msg);
       setMovie(msg);
     }
-  }, [getMovieByIdRequest, match.params.id]);
+    setProcessing(true);
+  };
 
   useEffect(() => {
-    if(!processing) {
-      load();
-      setProcessing(true);
+    console.log('match.params.id', match.params.id);
+    load();
+    return () => {
+      setterRef.current = () => undefined
     }
-  }, [load, processing]);
+  }, [state, setterIfMounted, match.params.id]);
 
   return (
     <Container>
@@ -50,7 +58,7 @@ const MovieDetail = ({ match }) => {
             <div className="movie__row">
               <img
                 className="movieDetail__logo"
-                src={`${BASE_PATH_IMG}/w500${movie.poster_path}`}
+                src={movie.poster_path ? (`${BASE_PATH_IMG}/w500${movie.poster_path}`) : ('https://via.placeholder.com/150.png')}
                 alt={movie.original_title}
               />
               <div className="movieDetail__text">

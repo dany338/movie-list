@@ -6,7 +6,7 @@ export const Container = styled(Link)`
   margin-bottom: 40px;
   margin-left: 10px;
   margin-right: 10px;
-  background-color: #fff;
+  background-color: ${props => props.theme.headerBackground};
   box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
   transition: transform .2s ease-in-out,box-shadow .2s ease-in-out,-webkit-transform .2s ease-in-out;
   border-radius: 7px;
@@ -28,6 +28,14 @@ export const Container = styled(Link)`
 
   .video__text {
     margin-left: 15px;
+    width: 100%;
+  }
+
+  .video__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
   }
 
   .movie__subscriptions {

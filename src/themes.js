@@ -6,10 +6,10 @@ const colors = {
   brown: '#4e342e',
   blue: '#0d47a1',
   torre: '#F3F3F3',
-  header: '#27292D',
+  header: '#1f1f1f',
   headerText: 'rgba(255, 255, 255, 0.65)',
   headerActive: '#CDDC39',
-  backgroundBody: '#010101',
+  backgroundBody: '#444',
 };
 
 const themes = {

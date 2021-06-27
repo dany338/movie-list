@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -12,11 +13,16 @@ import { Container } from './styled';
 import { useMovies } from '../../infraestructure/hooks';
 /* Constants */
 import { BASE_PATH_IMG } from '../../infraestructure/config/const';
+/* Assets */
+import assets from '../../assets';
 
 dayjs.locale('es');
 dayjs.extend(relativeTime);
 
 const CardMovie = ({ id, poster_path, backdrop_path, title, release_date, vote_count, vote_average, genre_ids, onOpenModal }) => {
+  console.log('poster_path', poster_path);
+  const themeContext = useContext(ThemeContext);
+  console.log('Current theme: ', themeContext);
   const [ processing, setProcessing ] = useState(false);
   const [ genres, setGenres ] = useState([]);
   const { getGenreMovieRequest } = useMovies();
@@ -51,7 +57,7 @@ const CardMovie = ({ id, poster_path, backdrop_path, title, release_date, vote_c
   }, [load, processing]);
 
   return (
-    <Container to={`/movie/${id}`}>
+    <Container theme={themeContext} to={`/movie/${id}`}>
       {!processing ? (
         <div style={{justifyContent: 'flex-end', width: '100%'}}>
           Loading information wait moment please...
@@ -63,7 +69,7 @@ const CardMovie = ({ id, poster_path, backdrop_path, title, release_date, vote_c
         <>
           <img
             className="movie__thumbnail"
-            src={`${BASE_PATH_IMG}/w500${poster_path}`}
+            src={poster_path ? `${BASE_PATH_IMG}/w500${poster_path}` : (assets.logo) }
             alt="Movie Show Time Finder"
           />
           <div className="movie__info">
@@ -81,9 +87,11 @@ const CardMovie = ({ id, poster_path, backdrop_path, title, release_date, vote_c
               <p>
                 {vote_count} votes • {dayjs().from(dayjs(release_date)) } • Subscribers 0
               </p>
-              <div className="movie__subscriptions" onClick={(e) => onOpenModal(e, id, title, `${BASE_PATH_IMG}/w500${backdrop_path}`)}>
-                <h4>Subscribe</h4>
-              </div>
+            </div>
+          </div>
+          <div className="video__button">
+            <div className="movie__subscriptions" onClick={(e) => onOpenModal(e, id, title, `${BASE_PATH_IMG}/w500${backdrop_path}`)}>
+              <h4>Subscribe</h4>
             </div>
           </div>
         </>

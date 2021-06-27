@@ -117,6 +117,7 @@ const ModalSubscribe = ({ visible, onClose, movie }) => {
 
   return ReactDOM.createPortal(
     <Rodal
+      height={500}
       visible={visible}
       onClose={onClose}
       animation="zoom"

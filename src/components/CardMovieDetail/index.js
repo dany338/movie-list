@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import ReactStars from "react-rating-stars-component";
+import { ThemeContext } from 'styled-components';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -10,11 +11,15 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { Container } from './styled';
 /* Constants */
 import { BASE_PATH_IMG } from '../../infraestructure/config/const';
+/* Assets */
+import assets from '../../assets';
 
 dayjs.locale('es');
 dayjs.extend(relativeTime);
 
 const CardMovieDetail = ({ id, adult, overview, homepage, title, release_date, vote_count, vote_average, genres, poster_path, backdrop_path }) => {
+  const themeContext = useContext(ThemeContext);
+  window.scrollTo(0, 0);
   const media = vote_average / 2;
   const rateConfig = {
     size: 30,
@@ -31,9 +36,9 @@ const CardMovieDetail = ({ id, adult, overview, homepage, title, release_date, v
     }
   };
   return (
-    <Container>
+    <Container theme={themeContext}>
       <img
-        src={`${BASE_PATH_IMG}/w500${backdrop_path}`}
+        src={backdrop_path ? (`${BASE_PATH_IMG}/w500${backdrop_path}`) : (assets.logo)}
         alt={title}
       />
       <div className="movie__text">

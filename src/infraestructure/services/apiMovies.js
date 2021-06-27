@@ -107,9 +107,9 @@ export const apiMovies = {
       return error;
     }
   },
-  searchMovies: async search => {
+  searchMovies: async (page = 1, search) => {
     try {
-      const response = await fetch( `${API_HOST_MOVIES}${endpoints.movies.search}?api_key=${API_KEY}&language=${LANG}&query=${search}`);
+      const response = await fetch( `${API_HOST_MOVIES}${endpoints.movies.search}?api_key=${API_KEY}&language=${LANG}&page=${page}&query=${search}`);
       if (!response.ok || response.status === 404 || response.status === 403 || response.status === 409 || response.status === 500 ) {
         return response.statusText;
       }

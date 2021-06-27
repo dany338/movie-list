@@ -16,7 +16,8 @@ const Movies = lazy(() => import('./pages/Movies'));
 const MovieDetail = lazy(() => import('./pages/MovieDetail'));
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap');
+  /* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap'); */
+  @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
   @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
   @font-face {
     font-family: 'Material Icons';
@@ -33,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
 
   .App {
     font-size: ${props => props.fontSize};
-    font-family: "Nunito", sans-serif;
+    font-family: "Luckiest Guy", cursive;
     width: 100%;
     height: auto;
   }
@@ -87,6 +88,7 @@ const GlobalStyle = createGlobalStyle`
     z-index: 9999 !important;
     font-size: ${props => props.fontSize};
     font-family: "Nunito", sans-serif;
+    
   }
 
   .swal2-container {

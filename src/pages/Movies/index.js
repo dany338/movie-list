@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import firebase from 'firebase';
 /* Components */
@@ -16,6 +17,7 @@ const customStyles = {
 };
 
 const Movies = () => {
+  const themeContext = useContext(ThemeContext);
   const [ processing, setProcessing ] = useState(false);
   const [ visible, setVisible ] = useState(false);
   const [ movieSelected, setMovieSelected ] = useState(null);
@@ -60,7 +62,7 @@ const Movies = () => {
   }, [load, processing]);
 
   return (
-    <Container>
+    <Container theme={themeContext}>
       <h2>Recommended</h2>
       <div className="recommended__movies">
         {!processing ? (

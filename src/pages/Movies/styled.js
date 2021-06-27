@@ -6,6 +6,8 @@ export const Container = styled.div`
   background-color: #f9f9f9;
   padding: 40px 20px;
   padding-bottom: 0;
+  background-color: ${props => props.theme.backgroundBody};
+  color: #fbca17;
 
   @media only screen and (max-width: 601px) {
     flex: 1;
@@ -14,6 +16,7 @@ export const Container = styled.div`
   h2 {
     margin-left: 5px;
     margin-bottom: 20px;
+    font-size: 60px;
   }
 
   .recommended__movies {
